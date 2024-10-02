@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
-const cormorantBold = localFont({
-  src: "./fonts/CormorantGaramond-Bold.ttf",
-  variable: "--font-cormorant-bold",
-  weight: "700",
+export const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-cormorant",
+  weight: ['400', '700']
 });
-const cormorantRegular = localFont({
-  src: "./fonts/CormorantGaramond-Regular.ttf",
-  variable: "--font-cormorant-regular",
-  weight: "400",
-});
-const monteserratRegular = localFont({
-  src: "./fonts/Montserrat-VariableFont_wght.ttf",
-  variable: "--font-monteserrat",
-  weight: "400",
+
+export const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: "--font-montserrat"
 });
 
 export const metadata: Metadata = {
@@ -31,8 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${cormorantBold.variable} ${cormorantRegular.variable} ${monteserratRegular.variable} antialiased`}
+        className={`${cormorant.variable}  ${montserrat.className} antialiased`}
       >
+        <Toaster position="top-right"/>
         {children}
       </body>
     </html>

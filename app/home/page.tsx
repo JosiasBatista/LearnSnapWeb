@@ -1,43 +1,63 @@
-import { FiHeart, FiMessageSquare } from "react-icons/fi";
+"use client";
 
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Link from "next/link";
+import { FiPlusSquare } from "react-icons/fi";
+
+import Article from "../_components/Content/Article";
+import Quizz from "../_components/Content/Quizz";
+import Quote from "../_components/Content/Quote";
 import Header from "../_components/Header";
+import Empty from "@/app/assets/Empty.svg";
+import { getContentList } from "@/services/contentService";
+import Image from "next/image";
 
 export default function Home() {
+  const [page, setPage] = useState<number>(1);
+  const [contents, setContents] = useState([]);
+
+  useEffect(() => {
+    getContentList(page).then(result => {
+      setContents(result.data ? result.data.data : []);
+    }).catch((error) => {
+      toast.error(error.data.message);
+    })
+  }, []);
+  
+  const renderContentOnScreen = (content: any) => {
+    if (content.article) {
+      return <Article content={content} key={content.id} />
+    } else if (content.quote) {
+      return <Quote content={content} key={content.id} />
+    } else if (content.quizz) {
+      return <Quizz content={content} key={content.id} />
+    }
+  }
+
   return (
-    <div className="w-screen flex flex-col items-center">
+    <div className="w-screen flex flex-col items-center pb-8">
       <Header />
 
-      <section className="max-w-[535px] overflow-y-scroll py-8">
-        <div className="flex flex-col border-b border-[#C2C2C2] gap-2">
-          <div className="flex flex-row gap-1 items-center">
-            <strong className="font-[family-name:var(--font-cormorant)] text-base font-bold">Josias Abraão</strong>
-            <span>|</span>
-            <span className="font-[family-name:var(--font-cormorant)] text-xs font-bold">Educator</span>
-          </div>
-
-          <strong className="font-[family-name:var(--font-cormorant)] text-primary text-lg font-bold">Uso da IA generativa para escrita de Test Cases</strong>
-
-          <p className="font-[family-name:var(--font-montserrat)] text-xs font-regular">
-          Inteligência Artificial Geradora de Casos de Teste: A solução definitiva para aprimorar a qualidade dos seus testes de software."
-          
-          A programação de software é uma tarefa complexa e exigente, que requer uma atenção minuciosa em cada etapa do processo. E quando se trata de testes, a precisão e eficiência são fundamentais para garantir a qualidade do produto final.
-          
-          É por isso que apresentamos a IA generativa para casos de teste, uma ferramenta inovadora que revolucionará a forma como você realiza seus testes de software. Com a inteligência artificial como aliada, você poderá criar casos de teste de forma automatizada e ... 
-          </p>
-
-          <section className="flex flex-row gap-4 my-2">
-            <div className="flex flex-row gap-1 items-center">
-              <FiHeart size={16} color="#747474" />
-              <span className="font-[family-name:var(--font-montserrat)] text-xs font-regular">15 curtidas</span>
-            </div>
-
-            <div className="flex flex-row gap-1 items-center">
-              <FiMessageSquare size={16} color="#747474" />
-              <span className="font-[family-name:var(--font-montserrat)] text-xs font-regular">3 comentários</span>
-            </div>
-          </section>
+      {contents.length > 0 ?
+        contents.map(content => 
+          renderContentOnScreen(content)
+        ) :
+        <div className="mt-8 flex flex-col items-center">
+          <Image
+            src={Empty}
+            width={450}
+            alt="Aplicação sem conteúdos"
+          />
+          <strong className="font-[family-name:var(--font-cormorant)] font-bold text-4xl max-w-[70%] text-primary text-center">
+            Ainda não existem conteúdos!
+          </strong>
         </div>
-      </section>
+      }
+      
+      <Link href="/create-content" className="fixed end-[15%] bottom-8 rounded-lg bg-primary flex items-center justify-center w-11 h-11">
+        <FiPlusSquare size={24} color="#FFF" />
+      </Link>
     </div>
   )
 }

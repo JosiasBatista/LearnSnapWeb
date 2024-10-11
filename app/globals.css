@@ -26,4 +26,13 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .line-clamp {
+    display: -webkit-box;
+    line-clamp: 7;
+    -webkit-line-clamp: 7; /* Defina o número de linhas visíveis */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

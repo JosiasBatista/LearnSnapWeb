@@ -5,19 +5,11 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import Input from "@/app/_components/Input"
-import { login } from "@/services/authService";
-
-interface RegistrationProps {
-  name: string,
-  email: string,
-  password: string,
-  passwordConfirm: string,
-  type: string
-}
+import { register, RegisterProp } from "@/services/authService";
 
 export default function RegistrationForm({changeForm}: Readonly<{ changeForm: () => void }>) {
   const router = useRouter();
-  const [registrationForm, setRegistrationForm] = useState<RegistrationProps>({
+  const [registrationForm, setRegistrationForm] = useState<RegisterProp>({
     name: "",
     password: "",
     passwordConfirm: "",
@@ -29,9 +21,9 @@ export default function RegistrationForm({changeForm}: Readonly<{ changeForm: ()
   const registerAccount = async () => {
     setLoading(true);
 
-    login(registrationForm).then(() => {
+    register(registrationForm).then(() => {
       toast.success("Login realizado com sucesso!")
-      router.push('/about')
+      router.push('/home')
     }).catch(() => {
       toast.error("Erro ao realizar login!");
       setLoading(false);
@@ -54,7 +46,7 @@ export default function RegistrationForm({changeForm}: Readonly<{ changeForm: ()
       </span>
 
       <Input
-        inputChange={(text: string) => setFormValue(text, "name")}
+        inputChange={(text: string) => setFormValue(text, "email")}
         placeholder="Seu email"
         type="email"
       />
@@ -69,10 +61,25 @@ export default function RegistrationForm({changeForm}: Readonly<{ changeForm: ()
         type="password"
       />
       <Input
-        inputChange={(text: string) => setFormValue(text, "username")}
+        inputChange={(text: string) => setFormValue(text, "name")}
         placeholder="Nome de usuário"
         type="text"
       />
+      <section className="flex flex-row w-[85%] justify-between">
+        <div className="flex flex-row gap-1">
+          <input type="radio" name="userType" 
+            onChange={(value) => setFormValue(value.currentTarget.value, "type")} 
+            value="Educator" />
+          <span>Educador</span>
+        </div>
+        
+        <div className="flex flex-row gap-1">
+          <input type="radio" name="userType" 
+          onChange={(value) => setFormValue(value.currentTarget.value, "type")} 
+          value="Learner" />
+          <span>Aprendiz</span>
+        </div>
+      </section>
 
       <button disabled={loading} onClick={() => registerAccount()} 
       className="mt-4 bg-primary rounded-lg h-11 w-64 text-white">

@@ -1,12 +1,12 @@
-import { InputHTMLAttributes } from "react"
+import { TextareaHTMLAttributes } from "react"
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   labelName?: string
   fieldRequired?: boolean,
   inputChange: (text: string) => void
 }
 
-export default function Input({labelName, fieldRequired, inputChange, ...props}: Readonly<InputProps>) {
+export default function TextArea({labelName, fieldRequired, inputChange, ...props}: Readonly<TextAreaProps>) {
   return (
     <div className="mb-2 flex flex-col">
       {labelName && (
@@ -15,11 +15,11 @@ export default function Input({labelName, fieldRequired, inputChange, ...props}:
         </span>
       )}
 
-      <input
+      <textarea
         placeholder={props.placeholder}
         required={!!fieldRequired}
         onChange={(e) => inputChange(e.target.value)}
-        className="bg-dark_gray rounded-lg h-11 w-64 p-2"
+        className="bg-dark_gray rounded-lg w-64 p-2"
         {...props}
       />
     </div>

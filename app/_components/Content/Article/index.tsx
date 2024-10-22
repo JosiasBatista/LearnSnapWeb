@@ -20,7 +20,7 @@ export default function Article({ content } : any) {
           {content.article.title}
         </strong>
 
-        <p className="font-[family-name:var(--font-montserrat)] text-xs font-regular line-clamp">
+        <p className="font-[family-name:var(--font-montserrat)] text-xs font-regular line-clamp whitespace-pre-line">
           {content.article.article}
         </p>
 

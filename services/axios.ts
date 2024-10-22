@@ -82,7 +82,7 @@ api.interceptors.response.use(
           // Se a renovação falhar, faça logout ou redirecione para a página de login
           localStorage.removeItem('token');
           localStorage.removeItem('refreshToken');
-          window.location.href = '/login';
+          window.location.href = '/';
           return Promise.reject(err);
         }
       }

@@ -31,12 +31,12 @@ export default function AddComment({ contentId, close }: CommentProps) {
   return (
     <div className="w-screen h-screen bg-black/60 fixed top-0 left-0">
       <div className="absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] 
-      bg-white py-6 px-12 rounded-2xl flex flex-col">
+      bg-white py-6 px-8 rounded-2xl flex flex-col w-2/6">
         <button className="self-end" onClick={close}>
           <FiXCircle color="" size={24} />
         </button>
 
-        <TextArea labelName="Adicione um comentário" inputChange={(text) => setComments(text)} />
+        <TextArea rows={4} labelName="Adicione um comentário" inputChange={(text) => setComments(text)} />
 
         <div className="right-3 bottom-3 self-end mt-4">
           <button className="text-primary font-[family-name:var(--font-cormorant)] 

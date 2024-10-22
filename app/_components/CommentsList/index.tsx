@@ -2,7 +2,7 @@ import Creator from "../Content/Creator";
 
 export default function CommentsList({ comments }: any) {
   return (
-    <div className="w-9/12">
+    <div className="w-9/12 mt-6">
       <strong className="font-[family-name:var(--font-cormorant)] text-2xl">
         Comentários
       </strong>

@@ -19,7 +19,7 @@ export default function TextArea({labelName, fieldRequired, inputChange, ...prop
         placeholder={props.placeholder}
         required={!!fieldRequired}
         onChange={(e) => inputChange(e.target.value)}
-        className="bg-dark_gray rounded-lg w-64 p-2"
+        className="bg-dark_gray rounded-lg p-2 w-full"
         {...props}
       />
     </div>

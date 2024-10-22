@@ -20,8 +20,9 @@ export default function LoginForm({changeForm}: Readonly<{ changeForm: () => voi
     login(loginReq).then(() => {
       toast.success("Login realizado com sucesso!")
       router.push('/home')
-    }).catch(() => {
-      toast.error("Erro ao realizar login!");
+    }).catch((error) => {
+      console.log(error)
+      toast.error(error.message);
       setLoading(false);
     })
   }

@@ -68,7 +68,7 @@ export default function ArticlePage() {
         {article.title}
       </strong>
 
-      <p className="font-[family-name:var(--font-montserrat)] text-xs font-regular">
+      <p className="font-[family-name:var(--font-montserrat)] text-xs font-regular whitespace-pre-line">
         {article.article}
       </p>
 

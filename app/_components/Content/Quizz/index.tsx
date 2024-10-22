@@ -38,7 +38,7 @@ export default function Quizz({ content }: any) {
           </Link>
         </div>
         
-        <span className="font-[family-name:var(--font-cormorant)] text-xl font-bold">
+        <span className="font-[family-name:var(--font-cormorant)] text-xl font-bold whitespace-pre-line">
           {content.quizz.question}
         </span>
 

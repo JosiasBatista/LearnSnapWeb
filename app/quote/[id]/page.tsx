@@ -67,7 +67,7 @@ export default function QuizPage() {
       <div className="flex flex-row gap-2">
         <strong className="font-[family-name:var(--font-cormorant)] leading-8 text-primary text-[42px] font-bold">
           "</strong>
-        <p className="font-[family-name:var(--font-cormorant)] text-2xl font-bold">
+        <p className="font-[family-name:var(--font-cormorant)] text-2xl font-bold whitespace-pre-line">
           {quote.description}
         </p>
       </div>

@@ -28,11 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${cormorant.variable}  ${montserrat.className} antialiased`}
-      >
-        <Toaster position="top-right"/>
-        {children}
+      <body>
+        <main className={`${cormorant.variable} ${montserrat.variable} antialiased`}>
+          <Toaster position="top-right"/>
+          {children}
+        </main>
       </body>
     </html>
   );

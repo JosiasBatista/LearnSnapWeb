@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LearnSnapWeb
 
-## Getting Started
+LearnSnapWeb é uma aplicação web construída com Next.js e TypeScript onde usuários podem compartilhar e adquirir conhecimento rapidamente. A plataforma permite a criação e participação em quizzes para facilitar o aprendizado em diversos tópicos.
+Índice
 
-First, run the development server:
+    Instalação
+    Execução do Projeto
+    Estrutura de Pastas
+    Tecnologias Utilizadas
+    Funcionalidades
+    Rotas da Aplicação
+    Contribuindo
+    Licença
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Instalação
+
+Para instalar o projeto localmente, siga os passos abaixo:
+
+1. Clone o repositório:
+
+  `git clone https://github.com/JosiasBatista/LearnSnapWeb.git`
+
+2. Acesse o diretório do projeto:
+
+  `cd LearnSnapWeb`
+
+3. Instale as dependências necessárias usando o npm, yarn, ou pnpm:
+```
+  npm install
+  # ou
+  yarn install
+  # ou
+  pnpm install
+```
+4. Execução do Projeto
+
+Para rodar o projeto em ambiente de desenvolvimento:
+```
+  npm run dev
+  # ou
+  yarn dev
+  # ou
+  pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Abra http://localhost:3000 no navegador para visualizar a aplicação. A página irá recarregar automaticamente quando você fizer alterações no código.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estrutura de Pastas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Aqui está um resumo da estrutura de pastas principal do projeto:
+```
+LearnSnapWeb/
+├── app/                  # Diretório de páginas e componentes principais
+│   ├── page.tsx          # Página inicial
+│   ├── login/page.tsx    # Página de login
+│   └── quiz/[id]/page.tsx# Página de detalhes de quizzes
+├── services/             # Serviços de chamadas API
+│   └── api.ts            # Lógica de interação com a API
+├── public/               # Arquivos públicos (imagens, etc.)
+├── styles/               # Estilos globais
+├── .eslintrc.json        # Configuração do ESLint
+├── tailwind.config.ts    # Configuração do Tailwind CSS
+├── tsconfig.json         # Configuração do TypeScript
+└── package.json          # Dependências e scripts do projeto
+```
 
-## Learn More
+## Tecnologias Utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+  Next.js: Framework React para renderização do lado do servidor e cliente, oferecendo uma experiência de desenvolvimento otimizada.
+  TypeScript: Superset do JavaScript que adiciona tipagem estática.
+  Tailwind CSS: Framework utilitário para criação rápida de layouts responsivos e customizados.
+  Axios: Para fazer requisições HTTP à API.
+  ESLint: Ferramenta de linting para manter o código limpo e padronizado.
+  PostCSS: Processador de CSS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contribuindo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Se você deseja contribuir para o desenvolvimento deste projeto:
 
-## Deploy on Vercel
+  Faça um fork do repositório.
+  Crie uma nova branch para suas alterações (git checkout -b feature/MinhaFeature).
+  Faça as alterações necessárias e adicione commits (git commit -m 'Adiciona MinhaFeature').
+  Envie suas alterações (git push origin feature/MinhaFeature).
+  Abra um Pull Request e descreva suas alterações.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Licença
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.

@@ -18,7 +18,7 @@ export default function Quote({ content }: any) {
 
         <div className="flex flex-row gap-2">
           <strong className="font-[family-name:var(--font-cormorant)] leading-8 text-primary text-[42px] font-bold">
-            "</strong>
+            &quot;</strong>
           <p className="font-[family-name:var(--font-cormorant)] text-2xl font-bold">
             {content.quote.description}
           </p>

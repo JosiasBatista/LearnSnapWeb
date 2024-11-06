@@ -32,7 +32,11 @@ export const UserProvider = ({ children }: { children: ReactNode}) => {
     const storedUser = localStorage.getItem('user');
 
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch {
+        localStorage.setItem('user', "");
+      }
     } else if (pathname !== "/") {
       window.location.href = "/";
     }

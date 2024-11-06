@@ -3,6 +3,8 @@ import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
+import { UserProvider } from "./_context/userContext";
+
 export const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   display: "swap",
@@ -31,7 +33,9 @@ export default function RootLayout({
       <body>
         <main className={`${cormorant.variable} ${montserrat.variable} antialiased`}>
           <Toaster position="top-right"/>
-          {children}
+          <UserProvider>
+            {children}
+          </UserProvider>
         </main>
       </body>
     </html>

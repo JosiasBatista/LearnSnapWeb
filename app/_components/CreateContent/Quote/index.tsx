@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
 
 import Input from "../../Input";
 import { getAreas } from "@/services/areaService";
 import { Area } from "@/app/types";
 import { createQuote } from "@/services/contentService";
 import toast from "react-hot-toast";
+import LoadingImg from "@/app/assets/LoadingWhite.svg";
 
 interface QuoteCreationProps {
   description: string,
@@ -23,6 +25,7 @@ export default function CreateQuote() {
     areaId: -1
   });
   const [areas, setAreas] = useState<Area[]>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getAreas().then(response => {
@@ -38,11 +41,15 @@ export default function CreateQuote() {
   }
 
   const callCreateQuote = () => {
+    setLoading(true);
+
     createQuote(quoteData).then(() => {
       toast.success("Citação criada com sucesso!");
       router.push('/home')
     }).catch((error) => {
       toast.error(error.message)
+    }).finally(() => {
+      setLoading(false)
     })
   }
 
@@ -66,10 +73,14 @@ export default function CreateQuote() {
       </div>
 
       <button 
+      disabled={loading}
       onClick={() => callCreateQuote()}
-      className="mt-4 bg-primary rounded-lg h-11 w-64 text-white self-end"
+      className="mt-4 bg-primary flex justify-center items-center rounded-lg h-11 w-64 text-white self-end"
       >
-        Publicar
+        {loading ?
+          <Image src={LoadingImg} alt="LoadingImg" /> :
+          'Publicar'
+        }
       </button>
     </section>
   )

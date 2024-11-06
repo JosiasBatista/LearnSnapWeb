@@ -8,6 +8,8 @@ import { Area } from "@/app/types";
 import { createQuizz } from "@/services/contentService";
 import toast from "react-hot-toast";
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
+import LoadingImg from "@/app/assets/LoadingWhite.svg";
 
 interface QuizzCreationProps {
   question: string,
@@ -29,6 +31,7 @@ export default function CreateQuizz() {
     areaId: -1
   });
   const [areas, setAreas] = useState<Area[]>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getAreas().then(response => {
@@ -44,11 +47,15 @@ export default function CreateQuizz() {
   }
 
   const callCreateQuizz = () => {
+    setLoading(true);
+
     createQuizz(quizzData).then(() => {
       toast.success("Citação criada com sucesso!");
       router.push('/home')
     }).catch((error) => {
       toast.error(error.message)
+    }).finally(() => {
+      setLoading(false);
     })
   }
 
@@ -78,10 +85,14 @@ export default function CreateQuizz() {
       </div>
 
       <button 
+      disabled={loading}
       onClick={() => callCreateQuizz()}
-      className="mt-4 bg-primary rounded-lg h-11 w-64 text-white self-end"
+      className="mt-4 bg-primary flex justify-center items-center rounded-lg h-11 w-64 text-white self-end"
       >
-        Publicar
+        {loading ?
+          <Image src={LoadingImg} alt="LoadingImg" /> :
+          'Publicar'
+        }
       </button>
     </section>
   )

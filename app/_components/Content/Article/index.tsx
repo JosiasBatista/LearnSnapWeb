@@ -1,6 +1,7 @@
 import LikeAndComment from "@/app/_components/LikeAndComment";
 import Creator from "../Creator";
 import Link from "next/link";
+import { renderTextWithLink } from "../../RenderTextWithLink";
 
 export default function Article({ content } : any) {
   return (
@@ -21,7 +22,7 @@ export default function Article({ content } : any) {
         </strong>
 
         <p className="font-[family-name:var(--font-montserrat)] text-xs font-regular line-clamp whitespace-pre-line">
-          {content.article.article}
+          {renderTextWithLink(content.article.article)}
         </p>
 
         <LikeAndComment values={content._count} liked={content.Like[0]} contentId={content.id} />

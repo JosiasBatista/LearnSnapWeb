@@ -1,7 +1,7 @@
 import api from "./axios";
 
 export const getContentList = async (page: number) => {
-  return api.get(`/api/contents/${page}/20`);
+  return api.get(`/api/contents/${page}/15`);
 }
 
 export const createArticle = async (articleReq: any) => {

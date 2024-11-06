@@ -5,10 +5,12 @@ import { useState, useEffect } from 'react';
 interface PaginationProps {
   totalPages: number,
   currentPage: number,
+  total: number,
+  visibleContentAmount: number,
   onPageChange: (page: number) => void
 }
 
-export function Pagination({ totalPages, currentPage, onPageChange }: PaginationProps) {
+export function Pagination({ totalPages, currentPage, onPageChange, total, visibleContentAmount }: PaginationProps) {
   const [visiblePages, setVisiblePages] = useState<number[]>([]);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export function Pagination({ totalPages, currentPage, onPageChange }: Pagination
           <button
             key={page}
             onClick={() => handlePageClick(page)}
-            className={`px-3 py-1 rounded-full ${
+            className={`px-3 py-1 rounded-full mx-1 ${
               page === currentPage ? 'bg-primary text-white' : 'bg-gray-200 hover:bg-gray-300'
             }`}
           >
@@ -65,7 +67,7 @@ export function Pagination({ totalPages, currentPage, onPageChange }: Pagination
         </button>
       </section>
 
-      <span className="ml-2 text-xs font-[family-name:var(--font-montserrat)]">Mostrando {currentPage} de {totalPages} resultados</span>
+      <span className="ml-2 text-xs font-[family-name:var(--font-montserrat)]">Mostrando {visibleContentAmount} de {total} resultados</span>
     </div>
   );
 }

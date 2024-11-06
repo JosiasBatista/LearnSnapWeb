@@ -6,6 +6,7 @@ import Creator from "../Creator";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { answerQuizz } from "@/services/contentService";
+import { renderTextWithLink } from "../../RenderTextWithLink";
 
 export default function Quizz({ content }: any) {
   const [quizzAnswer, setQuizzAnswer] = useState<string>("");
@@ -39,10 +40,10 @@ export default function Quizz({ content }: any) {
         </div>
         
         <span className="font-[family-name:var(--font-cormorant)] text-xl font-bold whitespace-pre-line">
-          {content.quizz.question}
+          {renderTextWithLink(content.quizz.question)}
         </span>
 
-        <div className="flex flex-row gap-1">
+        <div className="flex flex-col gap-1">
           {content.quizz.QuizzAnswer && content.quizz.QuizzAnswer.length > 0 ?
             (
               <div className="flex flex-row mb-4">
@@ -55,28 +56,31 @@ export default function Quizz({ content }: any) {
               </div>
             )
             :
-            content.quizz.options.map((option: any) => 
-              <>
-                <div key={option.id} className="bg-[#E6E6E6] min-h-16 min-w-[30%] items-center rounded-lg flex flex-row p-2 gap-2">
+            <>
+              {content.quizz.options.map((option: any) =>
+                <div key={option} className={`bg-[#E6E6E6] min-h-16 min-w-[30%] items-center 
+                rounded-lg flex flex-row p-2 gap-2 ${option === quizzAnswer && 'bg-primary'}`}>
                   <input 
                     type="radio" 
                     name="options" 
+                    id={option}
+                    className="cursor-pointer"
                     onChange={(e) => setQuizzAnswer(e.currentTarget.value)} 
                     value={option} 
                   />
-                  <span className="font-[family-name:var(--font-montserrat)] max-w-[70%] text-xs font-regular">
+                  <label htmlFor={option} className={`font-[family-name:var(--font-montserrat)] 
+                  max-w-[70%] text-xs font-regular cursor-pointer ${option === quizzAnswer && 'text-white font-bold'}`}>
                     {option}
-                  </span>
+                  </label>
                 </div>
-                
-                <button 
-                onClick={callAnswerQuizz}
-                className="w-32 text-xs text-center h-6 rounded-lg bg-primary text-white mt-3 self-end"
-                >
-                  Responder
-                </button>
-              </>
-            )
+              )}
+              <button 
+              onClick={callAnswerQuizz}
+              className="w-32 text-xs text-center h-6 rounded-lg bg-primary text-white mt-3 self-end"
+              >
+                Responder
+              </button>
+            </>
           }
         </div>
 

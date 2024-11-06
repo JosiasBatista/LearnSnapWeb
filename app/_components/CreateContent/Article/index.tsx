@@ -9,6 +9,8 @@ import { Area } from "@/app/types";
 import { createArticle } from "@/services/contentService";
 import toast from "react-hot-toast";
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
+import LoadingImg from "@/app/assets/LoadingWhite.svg";
 
 interface ArticleCreationProps {
   title: string,
@@ -24,6 +26,7 @@ export default function CreateArticle() {
     areaId: -1
   });
   const [areas, setAreas] = useState<Area[]>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getAreas().then(response => {
@@ -39,11 +42,15 @@ export default function CreateArticle() {
   }
 
   const callCreateArticle = () => {
+    setLoading(true);
+
     createArticle(articleData).then(() => {
       toast.success("Citação criada com sucesso!");
       router.push('/home')
     }).catch((error) => {
       toast.error(error.message)
+    }).finally(() => {
+      setLoading(false);
     })
   }
 
@@ -67,9 +74,13 @@ export default function CreateArticle() {
       </div>
 
       <button 
+      disabled={loading}
       onClick={() => callCreateArticle()}
-      className="mt-4 bg-primary rounded-lg h-11 w-64 text-white self-end">
-        Publicar
+      className="mt-4 bg-primary flex justify-center items-center rounded-lg h-11 w-64 text-white self-end">
+        {loading ?
+          <Image src={LoadingImg} alt="LoadingImg" /> :
+          'Publicar'
+        }
       </button>
     </section>
   )

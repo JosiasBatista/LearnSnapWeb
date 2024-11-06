@@ -32,9 +32,10 @@ export const register = async (registerRequest: RegisterProp) => {
   try {
     const response = await api.post('/register', registerRequest);
 
-    const { accessToken, refreshToken } = response.data;
+    const { accessToken, refreshToken, userId } = response.data;
     localStorage.setItem('token', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('userId', userId);
 
     return response.data;
   } catch (error: any) {
@@ -42,7 +43,13 @@ export const register = async (registerRequest: RegisterProp) => {
   }
 };
 
-export const logout = () => {
+export const revokeAllUserTokens = async (userId: number) => {
+  return api.post(`/revokeRefreshTokens`, { userId })
+}
+
+export const logout = (userId: string) => {
   localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
+  revokeAllUserTokens(parseInt(userId))
   window.location.href = '/';
 };

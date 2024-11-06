@@ -5,7 +5,11 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import Input from "@/app/_components/Input"
+import LoadingImg from "@/app/assets/LoadingWhite.svg";
 import { register, RegisterProp } from "@/services/authService";
+import { getUserById } from "@/services/userService";
+import { useUser } from "@/app/_context/userContext";
+import Image from "next/image";
 
 export default function RegistrationForm({changeForm}: Readonly<{ changeForm: () => void }>) {
   const router = useRouter();
@@ -14,16 +18,21 @@ export default function RegistrationForm({changeForm}: Readonly<{ changeForm: ()
     password: "",
     passwordConfirm: "",
     email: "",
-    type: ""
+    type: "Educator"
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const { setUser } = useUser();
 
   const registerAccount = async () => {
     setLoading(true);
 
-    register(registrationForm).then(() => {
+    register(registrationForm).then(async ({ userId }) => {
+      const user = await getUserById(userId);
+      setUser(user.data);
+      localStorage.setItem('user', JSON.stringify(user.data));
+      
       toast.success("Login realizado com sucesso!")
-      router.push('/home')
+      router.push('/areas-of-interest')
     }).catch(() => {
       toast.error("Erro ao realizar login!");
       setLoading(false);
@@ -65,25 +74,13 @@ export default function RegistrationForm({changeForm}: Readonly<{ changeForm: ()
         placeholder="Nome de usuário"
         type="text"
       />
-      <section className="flex flex-row w-[85%] justify-between">
-        <div className="flex flex-row gap-1">
-          <input type="radio" name="userType" 
-            onChange={(value) => setFormValue(value.currentTarget.value, "type")} 
-            value="Educator" />
-          <span>Educador</span>
-        </div>
-        
-        <div className="flex flex-row gap-1">
-          <input type="radio" name="userType" 
-          onChange={(value) => setFormValue(value.currentTarget.value, "type")} 
-          value="Learner" />
-          <span>Aprendiz</span>
-        </div>
-      </section>
 
       <button disabled={loading} onClick={() => registerAccount()} 
-      className="mt-4 bg-primary rounded-lg h-11 w-64 text-white">
-        Registrar-se
+      className="mt-4 bg-primary flex justify-center items-center rounded-lg h-11 w-64 text-white">
+        {loading ?
+          <Image src={LoadingImg} alt="LoadingImg" /> :
+          'Registrar-se'
+        }
       </button>
       <button onClick={changeForm} 
       className="mt-2 bg-transparent text-primary text-sm">

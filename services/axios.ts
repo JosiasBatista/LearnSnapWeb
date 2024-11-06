@@ -64,7 +64,7 @@ api.interceptors.response.use(
           const refreshToken = localStorage.getItem('refreshToken'); // Pega o refresh token
           
           // Faz a requisição para o endpoint de renovação de token
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/refresh`, { token: refreshToken });
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/refreshToken`, { token: refreshToken });
 
           const { token: newToken } = response.data; // Pega o novo token JWT da resposta
           localStorage.setItem('token', newToken); // Atualiza o token no localStorage

@@ -17,7 +17,6 @@ export default function LikeAndComment({ values, liked, contentId }: any) {
       })
     } else {
       likeContent(contentId).then((response: any) => {
-        console.log(response)
         setLikeAmount(response.data.likeAmount);
         setIsLiked({ id: response.data.like.id });
 

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Creator from '@/app/_components/Content/Creator';
-import { answerQuizz, deleteContent, getContentComments, getQuizzById, getQuoteById } from '@/services/contentService';
+import { deleteContent, getContentComments, getQuoteById } from '@/services/contentService';
 import LikeAndComment from '@/app/_components/LikeAndComment';
 import CommentsList from '@/app/_components/CommentsList';
 import { FiTrash2 } from 'react-icons/fi';

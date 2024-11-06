@@ -40,7 +40,7 @@ export const UserProvider = ({ children }: { children: ReactNode}) => {
     } else if (pathname !== "/") {
       window.location.href = "/";
     }
-  }, [])
+  }, [pathname])
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
